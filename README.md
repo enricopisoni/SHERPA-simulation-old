@@ -10,7 +10,7 @@ The modules that can be used in the code are:
 -  Module 6 (Governance): to analyze how one should coordinate with the surrounding regions to optimally improve air quality;
 -  Module 8 (health impact): to evaluate PM2.5 health-related impact, when running module 1
 -  Module 9 (aggregation): to aggregate emissions and concentrations, at NUTS or FUAs level.
--  Module 10 (costs of eop measures): to evaluate costs due to the application of a bunch of 'end of pipe measures'.
+-  Module 10 (costs of eop measures): to evaluate costs due to the application of a bunch of 'end of pipe measures', using marginal cost curves.
 
 Note that this version of the code can be used both with EDGAR5.0 and CAMS4.2.
 
