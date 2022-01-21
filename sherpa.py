@@ -180,7 +180,7 @@ if __name__ == '__main__':
         path_input_txt='./inputBB/costs_input.csv'
         #path_input_txt='./inputBB/costs_input_nognfr13.csv'
         #Static database of costs
-        path_datab_txt='./inputBB/SHERPA_marginal_DB_REF_post2014_CLE_2015.csv'
+        path_datab_txt='./inputBB/SHERPA_unitc_DB_CAO2_2015.csv'
         #Output file to be managed by Alessandro 
         path_costd_txt='./outputBB/costdetails.txt'
         module10(path_input_txt,path_datab_txt,path_costd_txt)

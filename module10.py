@@ -12,6 +12,7 @@ def module10(filedata,filebase,fileout):
     ITEMAX = 1
     VALMAX = 1.e20
     VALMIN = -VALMAX
+    NEARZERO = 0.0e-10
     EPS = 0.
     ERROR = 1.
     # First, some useful procedure 
@@ -34,17 +35,10 @@ def module10(filedata,filebase,fileout):
         for i in range(1,len(liste)):
             out = out + '.' + matrix[iden,ind[liste[i]]]
         return out
-    #Open database and input files
-    #filebase = 'outf/SHERPA_marginal_DB_REF_post2014_CLE_2015.csv'
-    #filebase = 'outf/SHERPA_marginal_DB_REF_post2014_CLE_2015.csva.old'
-    #filebase = 'outf/SHERPA_unitc_DB_REF_post2014_CLE_2015.csv'
-    #filedata = 'sherpa/input.csv'
-    #Input file shape: FR,GNFR3,PM_25,1500,30
-    #Cost database header: GAINS_REGION,POL,GNFR_SECTOR,GAINS_SECTOR,GAINS_ACTIVITY,TECHNO,fraction,
-    #                      cost_per_dea,rem_eff,perc,dea,tea,mc,tc,ef_by_act,ACT_UNIT,GNFR,EU_COUNTRY_CODE
     #
     # Read cost database and input file
     df = pd.read_csv(filebase, sep=r',', engine='python') 
+    #dt = pd.read_csv(filedata, sep=r',', header=None, engine='python') 
     dt = pd.read_csv(filedata, sep=r',', engine='python') 
     costbase = np.array(df)
     ncoldf = np.shape(costbase)[1] 
@@ -56,10 +50,9 @@ def module10(filedata,filebase,fileout):
     counlis = origdata[:,0] 
     print(list(sort_uniq(counlis)))
     for country in list(sort_uniq(counlis)):
-        print(country)
         inputdata=origdata[(origdata[:,0] == country)]
         ncase = np.shape(inputdata)[0] 
-        print(inputdata)
+        #print(inputdata)
         #First screening to check inputdata on maximum abatement
         #
         maxabat = {}   #Max abatement per GNFR
@@ -105,9 +98,9 @@ def module10(filedata,filebase,fileout):
         nrankprior = np.empty((0,1),int)
         for idx in range(ncase):
             keyg=inputdata[idx,2]+'.'+inputdata[idx,1]
-            if maxabat[keyg] <= 0.:
-               print("Skip",keyg,".....")
-               continue 
+            #if maxabat[keyg] <= 0.:
+            #   print("Skip",keyg,".....")
+            #   continue 
             ninputdata = np.append(ninputdata, [np.array(inputdata[idx,:])] , axis=0)
             nrankprior = np.append(nrankprior, [np.array(rankprior[idx,:])] , axis=0)
         #
@@ -122,7 +115,7 @@ def module10(filedata,filebase,fileout):
            before = ninputdata[idx,1]
            keyprio[keyg] = nrankprior[idx,0]
         #
-        print(keyprio)
+        #print(keyprio)
         #Here I load the inputdata after screening with strickly positive max abatement factor
         #ninputdata is the inputdata
         #
@@ -140,11 +133,15 @@ def module10(filedata,filebase,fileout):
             keycost = {}   #Techno key: GAINS/ACTIVITY/SECTOR
             keygnfr = {}
             remgain = {}   #remaining GAINS emissions after abatement
+            remtech = {}   #remaining GAINSup to technology emissions after abatement
+            totperc = {}
+            topreme = {}
             remgnfr = {}   #remaining GNFR emissions after abatement
             savgnfr = {}   #Initial emissions
             costech = {}   #cost per abated emissions (Euros/kg)
             isacost = {}    #Check if a cost is available for the global key
             keygnfr = {}   #GNFR key: POL/GNFR
+            keyrlis = {}   #GNFR key: POL/GNFR
             kkkgnfr = {}   #GNFR key: POL/GNFR
             priorpo = {}   #Main pollutant
             otherpo = {}   #Polutant concerned by the techno
@@ -205,18 +202,43 @@ def module10(filedata,filebase,fileout):
                         rdealist[keyc] = ([]) 
                         efac[key] = subset[idy,indexdf['ef_by_act']] 
                         remgain[keyr] = subset[idy,indexdf['fraction']]*ninputdata[idx,3]
-                        costech[key] =  subset[idy,indexdf['cost_per_dea']]
+                        remtech[key] = subset[idy,indexdf['perc']]*remgain[keyr]/100.
+                        if (keyr in totperc):
+                            totperc[keyr] = subset[idy,indexdf['perc']]/100. + totperc[keyr]
+                        else:
+                            totperc[keyr] = subset[idy,indexdf['perc']]/100.
+                        if (keyr in topreme):
+                            if (reme[key] >= topreme[keyr][0]):
+                                topreme[keyr] = [reme[key],key]
+                        else:
+                            #totperc[keyr] = NEARZERO
+                            topreme[keyr] = [reme[key],key]
+                        #print(keyr,topreme[keyr])
+                        costech[key] = subset[idy,indexdf['cost_per_dea']]
                         teatech[key] =  subset[idy,indexdf['tea']]
                         keycost[key] =  keyc
                         keygnfr[key] =  keyg
+                        keyrlis[key] =  keyr
                         kkkgnfr[keyc] =  keyg
                         gnslist[keyg].append(keyc)
                         teatech[key] =  subset[idy,indexdf['tea']]
-                    idmax = subset[:,indexdf['tea']].argmax()
-                    var4ranking[idx] = subset[idmax,indexdf['tc']]/subset[idmax,indexdf['tea']]
+                    #idmax = subset[:,indexdf['tea']].argmax()
+                    #var4ranking[idx] = subset[idmax,indexdf['tc']]/subset[idmax,indexdf['tea']]
+                    idmax = subset[:,indexdf['cost_per_dea']].argmax()
+                    var4ranking[idx] = subset[idmax,indexdf['cost_per_dea']]
                 else:
                     print("Check your inputs: GNFR or Pollutant or Country is not present in the database: %s" % (keyg))
+                # Herebelow I perform the last calculation of the emission by technologies remtech
+                if nrowsubset > 0:
+                    for idy in range(nrowsubset):
+                        key  = keygen(idy,indexdf,subset,('POL','GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
+                        keyc = keygen(idy,indexdf,subset,('GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
+                        keyr = keygen(idy,indexdf,subset,('POL','GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
+                        #print(keyr,totperc[keyr])
+                        #if totperc[keyr] > 0.:
+                        #    remtech[key] = remtech[key] /totperc[keyr]
             #Add column for ranking
+            listofkeys = list(reme.keys())
             dummy = np.c_[ninputdata,var4ranking]
             #Flip the rows
             input_sorted = np.flipud(dummy[dummy[:,5].argsort()][:,:])[:,:5]
@@ -249,7 +271,8 @@ def module10(filedata,filebase,fileout):
                     minrtec[keys] = reme[keyp]
             #
             #Here I search if a I am a key pollutant with possible negative impact on other pollutants
-            for idx in range(len(np.array(list(gnslist.items())))):
+            #for idx in range(len(np.array(list(gnslist.items())))):
+            for idx in range(len(list(gnslist.items()))):
                 keyg = list(gnslist.items())[idx][0]
                 count = {}
                 for p in polist: 
@@ -264,18 +287,19 @@ def module10(filedata,filebase,fileout):
                 keyp = list(keycost.items())[idx][0]
                 keys = list(keycost.values())[idx]
                 if (reme[keyp] > 0.) & (minrtec[keys] < 0.):
-                    backuptech[keyp] = True
+                    #backuptech[keyp] = True
+                    backuptech[keyp] = False
                 else:
                     backuptech[keyp] = False
             #Print Maximal reachable abatament
-            print("********Max abatement (%)*********")
-            for idx in range(len(np.array(list(maxabat.items())))):
-                print("%-13s : %8.1f " % (list(maxabat.items())[idx][0],list(maxabat.values())[idx]))
-            print("**********************************")
+            #print("********Max abatement (%)*********")
+            #for idx in range(len(np.array(list(maxabat.items())))):
+            #    print("%-13s : %8.1f " % (list(maxabat.items())[idx][0],list(maxabat.values())[idx]))
+            #print("**********************************")
             input_sorted = copy.deepcopy(ninputdata)
             #input_sorted = dummy[dummy[:,5].argsort()][:,:5]
             #ncase = np.shape(ninputdata)[0] 
-            print("Start Optimization...")
+            #print("Start Optimization...")
             #Now Let's start the optimization
             
             for idx in range(ncase): #Loop over cases in input
@@ -287,11 +311,19 @@ def module10(filedata,filebase,fileout):
                 idy = 0
                 keyg = input_sorted[idx,2]+'.'+input_sorted[idx,1]
                 target = (1. - input_sorted[idx,4]/100.)*input_sorted[idx,3]
-                while (remgnfr[keyg] >= target) & (idy < nrowsubset):
+                #findpol = key[0:key.index('.')]
+                #findgfr = key[key.index('.')+1:]
+                #findact = findgfr[findgfr.index('.')+1:]
+                #findgfr = findgfr[0:findgfr.index('.')]
+                #findact = findact[0:findact.index('.')]
+                #print(key,findpol,findgfr,findact)
+                while (remgnfr[keyg] > target) & (idy < nrowsubset):
                     key  = keygen(idy,indexdf,subset,('POL','GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
                     keyr = keygen(idy,indexdf,subset,('POL','GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
-                    #print("ZZZZ",input_sorted[idx,2],remgnfr[keyg],target,ifte[key],reme[key])
-                    if ifte[key] & ( reme[key] > 0.):  #I do not account for negative removal efficiency
+                    idk = listofkeys.index(key)
+                    #print(idk)
+                    if ifte[key]: # & ( reme[key] > 0.):  #I do not account for negative removal efficiency
+                    #if ifte[key] & ( reme[key] > 0.):  #I do not account for negative removal efficiency
                         #print("------------YYYYY",input_sorted[idx,2],remgnfr[keyg],target,ifte[key],reme[key],backuptech[key])
                         if not backuptech[key]:
                             ifte[key] = False
@@ -302,35 +334,33 @@ def module10(filedata,filebase,fileout):
                                     keyg_pol = pol+'.'+input_sorted[idx,1]
                                     key_pol = pol+'.'+keygen(idy,indexdf,subset,('GAINS_SECTOR','GAINS_ACTIVITY','TECHNO')) 
                                     keyr_pol = pol+'.'+keygen(idy,indexdf,subset,('GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
-                                    #print("++++++++aaaa",pol,key,key_pol)
                                     if (key_pol in reme):
-                                        #print("++++++++AAAA",pol,key,key_pol,reme[key],reme[key_pol])
                                         if ifte[key_pol]:
                                             ifte[key_pol] = False
-                                    #rdea[key_pol] = (perc[key_pol] / 100.)*( reme[key_pol] / 100. ) * remgain[keyr_pol] # Here possibly we can have a negative removal efficiency
-                                            rdea[key_pol] = ( reme[key_pol] / 100. ) * remgain[keyr_pol]*(1.- perc[key_pol] / 100.) # Here possibly we can have a negative removal efficiency
-                                            remgnfr[keyg_pol] -= rdea[key_pol]
-                                            remgain[keyr_pol] -= rdea[key_pol]
-                                            #if (remgnfr[keyg_pol] <= targetk[keyg_pol]) & (rdea[key_pol] != 0.):
-                                            #    prdea = rdea[key_pol]
-                                            #    rdea[key_pol] = rdea[key_pol] + remgnfr[keyg_pol] - targetk[keyg_pol]
-                                            #    if (rdea[key_pol] / prdea < xfrac):
-                                            #        xfrac = rdea[key_pol] / prdea #Not used so far
-                                        #print(pol,input_sorted[idx,2],xfrac,reme[key_pol])
-                                            #    remgnfr[keyg_pol] = remgnfr[keyg_pol] - rdea[key_pol] + prdea
-                                            #    remgain[keyr_pol] = remgain[keyr_pol] - rdea[key_pol] + prdea
-                            rdea[key] = ( reme[key] / 100. ) * remgain[keyr] * (1.- perc[key] / 100.) # Fraction of GNFR * Total Emission in kg
-                            #rdea[key] = (perc[key] / 100.)*( subset[idy,indexdf['rem_eff']] / 100. ) * remgain[keyr] # Fraction of GNFR * Total Emission in kg
-                            remgnfr[keyg] -= rdea[key]
-                            remgain[keyr] -= rdea[key]
-                            rdeac[key] = rdea[key]
+                                            if reme[key_pol] != 100.:
+                                                #print("++++++++aaaa",pol,key,key_pol)
+                                                rdea[key_pol] = ( ( topreme[keyr_pol][0] - reme[key_pol] ) / (100. - reme[key_pol]) ) * remtech[key_pol]
+                                                remgnfr[keyg_pol] -= rdea[key_pol]
+                                                remgain[keyr_pol] -= rdea[key_pol]
+                                                remtech[key_pol] -= rdea[key_pol]
+                                            #else:
+                                                #print("++++++++bbbb",pol,key,key_pol)
+                            if reme[key] != 100.:
+                                rdea[key] = ( ( topreme[keyr][0] - reme[key] ) / (100. - reme[key]) ) * remtech[key]
+                                remgnfr[keyg] -= rdea[key]
+                                remgain[keyr] -= rdea[key]
+                                remtech[key] -= rdea[key]
+                                rdeac[key] = rdea[key]
+                                #print("GGGGG",key,remgnfr[keyg],topreme[keyr][0],reme[key],rdea[key],target)
                     idy += 1
-                if (remgnfr[keyg] < target) & (idy <= nrowsubset) & (keyprio[keyg] == 1): # Only if I am a priority pollutant
+                if (idy >= 1) & (remgnfr[keyg] <= target) & (idy <= nrowsubset): # & (keyprio[keyg] == 1): # Only if I am a priority pollutant
+                    print("Hello")
                     idy -= 1
                     key  = keygen(idy,indexdf,subset,('POL','GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
                     keyr = keygen(idy,indexdf,subset,('POL','GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
                     prdea = rdea[key]
                     ifte[key] = False
+                    #print("Target1",key,remgnfr[keyg],target,rdea[key],prdea,xfrac)
                     rdea[key] = rdea[key] + remgnfr[keyg] - target
                     rdeac[key] = rdea[key]
                     remgnfr[keyg] = remgnfr[keyg] - rdea[key] + prdea
@@ -344,12 +374,14 @@ def module10(filedata,filebase,fileout):
                             keyg_pol = pol+'.'+input_sorted[idx,1]
                             key_pol = pol+'.'+keygen(idy,indexdf,subset,('GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
                             keyr_pol = pol+'.'+keygen(idy,indexdf,subset,('GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
+                            #print("....",keyg_pol,remgnfr[keyg_pol],xfrac)
                             if (key_pol in reme):
                                 ifte[key_pol] = False
                                 #prdea = xfrac * (reme[key_pol] / 100. ) * remgain[keyr_pol] # Here possibly we can have a negative removal efficiency
                                 prdea = xfrac * rdea[key_pol] # Here possibly we can have a negative removal efficiency
                                 remgnfr[keyg_pol] = remgnfr[keyg_pol] + rdea[key_pol] - prdea
                                 remgain[keyr_pol] = remgain[keyr_pol] + rdea[key_pol] - prdea
+                                remtech[key_pol]  = remtech[key_pol]  + rdea[key_pol] - prdea
                                 rdea[key_pol] = prdea
                 #
             #print("END ROUND 1",remgnfr)
@@ -362,8 +394,8 @@ def module10(filedata,filebase,fileout):
                 nrowsubset = np.shape(subset)[0]
                 for idy in range(nrowsubset):
                     key  = keygen(idy,indexdf,subset,('POL','GAINS_SECTOR','GAINS_ACTIVITY','TECHNO'))
-                    #print(">>>>COUCOU",key,backuptech[key],remgnfr[keyg],target)
                     if backuptech[key] & (remgnfr[keyg] >= target):
+                        print(">>>>COUCOU",key,backuptech[key],remgnfr[keyg],target)
                         keyr = keygen(idy,indexdf,subset,('POL','GNFR','GAINS_SECTOR','GAINS_ACTIVITY'))
                         if ifte[key] & ( reme[key] > 0.): #I do not account for negative removal efficiency
                             zfrac = 1. #default value 
@@ -384,13 +416,12 @@ def module10(filedata,filebase,fileout):
                                     if  (key_pol in reme):
                                         #if keyprio[keyg] == 1: #
                                         ifte[key_pol] = False
-                                        rdea[key_pol] = zfrac*( reme[key_pol] / 100. ) * remgain[keyr_pol] *(1.- perc[key_pol] / 100.) # Here possibly we can have a negative removal efficiency
-                                        #rdea[key_pol] = (perc[key_pol] / 100.)*( reme[key_pol] / 100. ) * remgain[keyr_pol] # Here possibly we can have a negative removal efficiency
+                                        rdea[key_pol] = zfrac*( ( topreme[keyr_pol][0] - reme[key_pol] ) / (100. - reme[key_pol]) ) * remtech[key_pol]
                                         remgnfr[keyg_pol] -= rdea[key_pol]
                                         remgain[keyr_pol] -= rdea[key_pol]
                                         #print(">>>>COUCOU",key,key_pol,reme[key_pol])
                             # From Here I calculate the impact on other pollutants if any
-                            rdea[key] = zfrac*( reme[key] / 100. ) * remgain[keyr] *(1.- perc[key] / 100.) # Fraction of GNFR * Total Emission in kg
+                            rdea[key] = zfrac*( ( topreme[keyr][0] - reme[key] ) / (100. - reme[key]) ) * remtech[key]
                             ifte[key] = not bool(round(zfrac))
                             #rdea[key] = (perc[key] / 100.)*( subset[idy,indexdf['rem_eff']] / 100. ) * remgain[keyr] # Fraction of GNFR * Total Emission in kg
                             remgnfr[keyg] -= rdea[key]
@@ -463,11 +494,15 @@ def module10(filedata,filebase,fileout):
         #End of iteration loop
         #I keep the maximal cost for eacj technologie and avoid double counting
         #
-        for idx in range(len(np.array(list(otherpo.items())))):
+        #for idx in range(len(np.array(list(otherpo.items())))):
+        for idx in range(len(list(otherpo.items()))):
             keyc = list(otherpo.items())[idx][0]
             for idy in range(len(otherpo[keyc])):
                 keyp = otherpo[keyc][idy]+'.'+keyc
-                tmp = rdeac[keyp]*costech[keyp]
+                tmp = VALMIN
+                if ( topreme[keyrlis[keyp]][0] != reme[keyp] ):
+                    tmp = rdeac[keyp]*( costech[topreme[keyrlis[keyp]][1]]*topreme[keyrlis[keyp]][0] - costech[keyp] * reme[keyp] ) / \
+                      ( topreme[keyrlis[keyp]][0] - reme[keyp] )
                 if (tmp > margcost[keyc]) & (ifte[keyp] == False):
                     margcost[keyc] = tmp
                     isacost[keyc] = True
@@ -478,22 +513,28 @@ def module10(filedata,filebase,fileout):
                 #print(keys,margcost[keys])
                 gnfcost[kkkgnfr[keys]] = gnfcost[kkkgnfr[keys]] + margcost[keys] 
         #
-        currency_string = "Total cost: \N{euro sign} {:,.0f} - [ \N{euro sign}/kg abated on average: {:,.2f}]". \
-                           format(np.sum(np.array(list(gnfcost.values()))), \
-                           np.sum(np.array(list(gnfcost.values())))/np.sum(np.array(list(rdea.values()))))
+        totabated = np.sum(np.array(list(rdea.values())))
+        if (totabated != 0.0) :
+            currency_string = "{:s} Total cost: \N{euro sign} {:,.0f} - [ \N{euro sign}/kg abated on average: {:,.2f}] - Final Abat.: {:,.2f} %". \
+                           format(str(country),np.sum(np.array(list(gnfcost.values()))), \
+                           np.sum(np.array(list(gnfcost.values())))/totabated,100.*totabated/np.sum(ini_inputdata[:,3]))
+        else:
+            currency_string = "{:s} Total cost: \N{euro sign} {:,.0f} - [ \N{euro sign}/kg abated on average: {:s}] - Final Abat.: {:,.2f} %". \
+                           format(str(country),np.sum(np.array(list(gnfcost.values()))), \
+                           "ND",100.*totabated/np.sum(ini_inputdata[:,3]))
         #
         print("*********************")
         print(currency_string)
         print("*********************")
         print("******Summary********")
         print("STOP after %s/%s iterations" % (ite+1,ITEMAX))
-        print("%-12s %19s %9s %5s %5s" \
-            % ('POL.GNFR','EMISabat.','EFFabat','INIabat','MAXabat'))
+        print("%-12s %19s %9s %5s" \
+            % ('POL.GNFR','EMISabat.','EFFabat','INIabat'))
         for idx in range(len(np.array(list(savgnfr.items())))):
             key = list(savgnfr.items())[idx][0]
             diff = list(remgnfr.values())[idx]-list(savgnfr.values())[idx]
-            print("%-13s : %11.1f Tons (%5.1f %1s [%5.1f] [%5.1f]" \
-            % (key,diff/1000,100*diff/list(savgnfr.values())[idx],"%)",-ini_inputdata[idx,4],-maxabat[key]))
+            print("%-13s : %11.1f Tons (%5.1f %1s [%5.1f]" \
+            % (key,diff/1000,100*diff/list(savgnfr.values())[idx],"%)",-ini_inputdata[idx,4]))
         #
         for key, value in margcost.items(): 
             for idx in range(len(otherpo[key])):
