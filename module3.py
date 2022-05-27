@@ -127,11 +127,11 @@ def module3a(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_con
     rootgrp = Dataset(filename_result_cdf, 'w', format='NETCDF3_CLASSIC')
     
     # create dimensions in the netcdf file
-    rootgrp.createDimension('Nsnaps', n_nuts)
+    rootgrp.createDimension('GNFRsector', n_nuts)
     rootgrp.createDimension('latitude', n_lat)
     rootgrp.createDimension('longitude', n_lon)
-    Nsnapss = rootgrp.createVariable('Nsnaps', 'f4', ('Nsnaps',))
-    Nsnapss[:] = sector_lst
+    GNFRsectors = rootgrp.createVariable('GNFRsector', 'f4', ('GNFRsector',))
+    GNFRsectors[:] = sector_lst
     latitudes = rootgrp.createVariable('latitude', 'f4', ('latitude',))
     latitudes.units = "degrees_north"
     longitudes = rootgrp.createVariable('longitude', 'f4', ('longitude',))
@@ -140,13 +140,13 @@ def module3a(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_con
     longitudes[:] = res_mod4_all['longitude_array']
     
     # create variables and initialize with zeros
-    DC_alpha_snap_var = rootgrp.createVariable('DC_alpha_snap', 'f4', ('Nsnaps', 'latitude', 'longitude',))
+    DC_alpha_snap_var = rootgrp.createVariable('DC_alpha_snap', 'f4', ('GNFRsector', 'latitude', 'longitude',))
     DC_alpha_snap_var.units = "ug/m3"
     DC_alpha_snap_var[:] = zeros((n_nuts, n_lat, n_lon))
-    DC_C_alpha_snap_var = rootgrp.createVariable('DC_C_alpha_snap', 'f4', ('Nsnaps', 'latitude', 'longitude',))
+    DC_C_alpha_snap_var = rootgrp.createVariable('DC_C_alpha_snap', 'f4', ('GNFRsector', 'latitude', 'longitude',))
     DC_C_alpha_snap_var.units = "%"
     DC_C_alpha_snap_var[:] = zeros((n_nuts, n_lat, n_lon))
-#     DC_DE_snap_var = rootgrp.createVariable('DC_DE_snap', 'f4', ('Nsnaps', 'latitude', 'longitude',))
+#     DC_DE_snap_var = rootgrp.createVariable('DC_DE_snap', 'f4', ('GNFRsector', 'latitude', 'longitude',))
 #     DC_DE_snap_var[:] = zeros((n_nuts, n_lat, n_lon))
 
     DC_alpha_all_var = rootgrp.createVariable('DC_alpha_all', 'f4', ('latitude', 'longitude',))

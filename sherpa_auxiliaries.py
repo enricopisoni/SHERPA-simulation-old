@@ -74,7 +74,7 @@ def create_emission_dict(path_emission_cdf, precursor_lst):
     snap_array = range(1, sector_lst[-1])
     lon_array = rootgrp.variables['longitude'][:]
     lat_array = rootgrp.variables['latitude'][:]
-    emission_dict['Nsnaps'] = snap_array
+    emission_dict['GNFRsector'] = snap_array
     emission_dict['lon_array'] = lon_array
     emission_dict['lat_array'] = lat_array
 

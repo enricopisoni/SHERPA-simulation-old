@@ -15,7 +15,7 @@ path_emission_cdf_test = '../input_CAMS42_EMEP/createBCemiGNFR/output/BCemis_eme
 # path_area_cdf_test = 'input_CAMS42_EMEP/EMI_RED_NUTS3_ITALY.nc'
 path_area_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/emiRedOn_Germany.nc'#London_emepCams_0_100_FLIP.nc'
 # reductions per precursor and macro sector
-path_reduction_txt_test = '../input_CAMS42_EMEP/createRedText/user_reduction_GNFR_PPM25.txt'#user_reduction_GNFR_all.txt'
+path_reduction_txt_test = '../input_CAMS42_EMEP/createRedText/user_reduction_GNFR_all.txt'#user_reduction_GNFR_all.txt'
 path_reduction50all_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
 # reductions per precursor and macro sector for module 3a and 3b
 path_reduction_mod3a1P_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
@@ -23,7 +23,7 @@ path_reduction_mod3a2P_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.
 path_reduction_mod3b_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
 
 # netcdf with model parameters per cell
-path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM25_rh50.nc' 
+path_model_cdf_test = '../input_CAMS42_EMEP/SRR/SR_SURF_ug_PM25_rh50.nc' 
 #path_model_cdf_test = '../input_CAMS42_EMEP/SRR/SR_SURF_ug_PM10_rh50.nc'
 #path_model_cdf_test = '../input_CAMS42_EMEP/SRR/SR_SURF_ug_NO2.nc'  
 #path_model_cdf_test = '../input_CAMS42_EMEP/SRR/SR_SURF_ug_NO.nc'  

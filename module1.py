@@ -98,22 +98,22 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
         # create dimensions in the netcdf file
         rootgrp.createDimension('latitude', len(emission_dict['lat_array']))
         rootgrp.createDimension('longitude', len(emission_dict['lon_array']))
-        rootgrp.createDimension('Nsnaps', len(emission_dict['Nsnaps']))
+        rootgrp.createDimension('GNFRsector', len(emission_dict['GNFRsector']))
         latitudes = rootgrp.createVariable('latitude', 'f4', ('latitude',))
         latitudes.units = "degrees_north"
         latitudes[:] = emission_dict['lat_array']
         longitudes = rootgrp.createVariable('longitude', 'f4', ('longitude',))
         longitudes.units = "degrees_east"
         longitudes[:] = emission_dict['lon_array']
-        Nsnaps = rootgrp.createVariable('Nsnaps', 'f4', ('Nsnaps',))
-        Nsnaps[:] = emission_dict['Nsnaps']
+        GNFRsector = rootgrp.createVariable('GNFRsector', 'f4', ('GNFRsector',))
+        GNFRsector[:] = emission_dict['GNFRsector']
         
         #20220413, units for the emission file
         unitsForEmis = Dataset(path_emission_cdf, 'r').variables['NOx'].units
         
         # create delta emission data
         for precursor in precursor_lst:
-            delta_emission_precursor = rootgrp.createVariable(precursor, 'f4', ('Nsnaps', 'latitude', 'longitude',))
+            delta_emission_precursor = rootgrp.createVariable(precursor, 'f4', ('GNFRsector', 'latitude', 'longitude',))
             delta_emission_precursor.units = unitsForEmis #"Mg/km2"
             delta_emission_precursor[:] = delta_emission_dict[precursor]
          
