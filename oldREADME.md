@@ -1,19 +1,4 @@
 # SHERPA-simulation
-In this branch I adapt the 0.1x0.1 deg resolutionSRR to work with a new downscaling module. This module requires a different structure of emissions and concentration files.
-
-For emissions:
-
-- a unique file for all air quality indexes, containing all precursors and (for PM) PPM2.5, PPMco, PPM10
-- same content should be available for basecase (initial) emissions and delta (resulting from the SRR simulation) emissions 
-- the code will work with 12 GNFR sectors
-- note that PPM10 = PPM2.5 + PMco
-
-For concentrations
-
-- you also need basecase files for PPM2.5 and PPM10 concentrations
-- the PPM2.5 basecase is directly extracted from the EMEP results, the PPM10 is on the contrary computed as the sum of PPM2.5 + PPMco
-- not that the SRR for PM downscaling will be run twice: once to simulate total PM2.5 (or PM10) and once to simulate the PPM2.5 (or PPM10) reductions. This second run is performed only reducing PPM2.5 or PPM10 emissions.
-
 With this code you can run simulations with the SHERPA SRR (built i.e. with the git repository SHERPA-training), to evaluate the impact of emission reduction scenarios on concentrations.
 This version of the SHERPA-simulation code has been tested withe the EDGAR2015 emission inventory, and with SRR built from EMEP air quality model simulations.
 
@@ -25,6 +10,9 @@ The modules that can be used in the code are:
 -  Module 6 (Governance): to analyze how one should coordinate with the surrounding regions to optimally improve air quality;
 -  Module 8 (health impact): to evaluate PM2.5 health-related impact, when running module 1
 -  Module 9 (aggregation): to aggregate emissions and concentrations, at NUTS or FUAs level.
+-  Module 10 (costs of eop measures): to evaluate costs due to the application of a bunch of 'end of pipe measures', using marginal cost curves.
+
+Note that this version of the code can be used both with EDGAR5.0 and CAMS4.2.
 
 # Publications
 
