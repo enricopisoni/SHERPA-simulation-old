@@ -101,7 +101,7 @@ if __name__ == '__main__':
         
         # run module 1 with test inputs
         start = time()
-        #module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
         stop = time()
         print('Module 1 run time: %s sec.' % (stop-start))
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         
         # run module 3a test inputs with test inputs
         start = time()
-#        module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        #module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
         # run module 4  with test inputs
         start = time()
-#        module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
         stop = time()
         print('Module 4 run time: %s sec.' % (stop-start))
         
@@ -147,22 +147,22 @@ if __name__ == '__main__':
         # paris
         target_cell_lat = 48.85     # 51.51
         target_cell_lon = 2.35  # 9.19      #-0.13
-#        module6(path_emission_cdf_test, path_nuts1_cdf_test, target_cell_lat, target_cell_lon, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module6(path_emission_cdf_test, path_nuts1_cdf_test, target_cell_lat, target_cell_lon, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
         stop = time()
         print('Module 6 calculation time = %f' % (stop - start))
 
         # run module 7 test inputs    
         start = time()
-#        module7(path_emission_cdf_test, path_base_conc_cdf_test, path_natural_dir_test,
-#                path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
-#                target_list, path_result_cdf_test, path_logo_test, aggr_zones, 'PM25')
+        # module7(path_emission_cdf_test, path_base_conc_cdf_test, path_natural_dir_test,
+        #         path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
+        #         target_list, path_result_cdf_test, path_logo_test, aggr_zones, 'PM25')
         stop = time()
         print('Module 7 calculation time = %f' % (stop - start))
 
         # run module 8 test inputs        
         start = time()
-#        module8_healthia(path_healthbl_test, path_result_cdf_test,
-#                         path_config_json_test, path_base_conc_cdf_test)
+        # module8_healthia(path_healthbl_test, path_result_cdf_test,
+        #                 path_config_json_test, path_base_conc_cdf_test)
         stop = time()
         print('Module 8 calculation time = %f' % (stop - start))
         
@@ -183,7 +183,7 @@ if __name__ == '__main__':
         path_datab_txt='./inputBB/SHERPA_unitc_DB_CAO2_2015.csv'
         #Output file to be managed by Alessandro 
         path_costd_txt='./outputBB/costdetails.txt'
-        module10(path_input_txt,path_datab_txt,path_costd_txt)
+        # module10(path_input_txt,path_datab_txt,path_costd_txt)
         
         stop = time()
         print('Module 10 calculation time = %f' % (stop - start))
@@ -215,14 +215,14 @@ if __name__ == '__main__':
         # ---------#
         # module 2 #
         # ---------#
-        elif module == 2:
-            path_emission_cdf = argv[2]     
-            path_nuts_cdf = argv[3]
-            path_reduction_txt = argv[4]
-            path_model_cdf = argv[5]
-            path_result_cdf = argv[6]
+        # elif module == 2:
+        #     path_emission_cdf = argv[2]     
+        #     path_nuts_cdf = argv[3]
+        #     path_reduction_txt = argv[4]
+        #     path_model_cdf = argv[5]
+        #     path_result_cdf = argv[6]
             
-            module2(path_emission_cdf, path_nuts_cdf, path_reduction_txt, path_model_cdf, path_result_cdf)
+        #     module2(path_emission_cdf, path_nuts_cdf, path_reduction_txt, path_model_cdf, path_result_cdf)
 
         # ---------#
         # module 3a #

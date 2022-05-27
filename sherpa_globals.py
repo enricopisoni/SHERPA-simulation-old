@@ -35,7 +35,7 @@ path_result_cdf_test = '../output_CAMS42_EMEP/'
 
 # progress log is used when module 1 is called by another module
 path_nuts0_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv0_CAMSEmep.nc'
-path_nuts1_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_CAMSEmep.nc'
+path_nuts1_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_EdgarEmep.nc'
 path_nuts2_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv2_CAMSEmep.nc'
 path_nuts3_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv3_CAMSEmep.nc'
 

@@ -108,10 +108,13 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
         Nsnaps = rootgrp.createVariable('Nsnaps', 'f4', ('Nsnaps',))
         Nsnaps[:] = emission_dict['Nsnaps']
         
+        #20220413, units for the emission file
+        unitsForEmis = Dataset(path_emission_cdf, 'r').variables['NOx'].units
+        
         # create delta emission data
         for precursor in precursor_lst:
             delta_emission_precursor = rootgrp.createVariable(precursor, 'f4', ('Nsnaps', 'latitude', 'longitude',))
-            delta_emission_precursor.units = "Mg/km2"
+            delta_emission_precursor.units = unitsForEmis #"Mg/km2"
             delta_emission_precursor[:] = delta_emission_dict[precursor]
          
         rootgrp.close()
@@ -133,7 +136,7 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         progress_dict = {'start': 0.0, 'divisor': 1.0}
         write_netcdf_output = True
     
-    # read the model netcdf
+    #M read the model netcdf
     # ---------------------
     rootgrp = Dataset(path_model_cdf, 'r')
     longitude_array = rootgrp.variables['lon'][0, :]
