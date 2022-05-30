@@ -45,7 +45,8 @@ def module4(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         progress_dict = read_progress_log(progresslog_filename)
     
     # calculate the delta emissions, dictionary per pollutant a matrix of dimension n_lat x n_lon
-    mod1_res = module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, progresslog_filename)
+    mod1_res = module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request, 
+                       progresslog_filename)
     delta_conc = mod1_res['delta_conc']
     delta_emis_dict = mod1_res['delta_emis_dict']
     n_lat = mod1_res['n_lat']

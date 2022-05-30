@@ -14,10 +14,16 @@ For concentrations
 - the PPM2.5 basecase is directly extracted from the EMEP results, the PPM10 is on the contrary computed as the sum of PPM2.5 + PPMco
 - not that the SRR for PM downscaling will be run twice: once to simulate total PM2.5 (or PM10) and once to simulate the PPM2.5 (or PPM10) reductions. This second run is performed only reducing PPM2.5 or PPM10 emissions.
 
+Now the code uses different tagas for emissions definitions (PPM25 or PPM10, depending on emissions to be reduced). 
+Also now a new variable has been added when running module1 (downscale_request). 
+If the variable downscale_request=0, a run with normal reductions is done. If downscale_request=1 then a run is done only reducing PPM emissions. 
+This second run creates concentrations change for the PPM component. Finally, now filename are automatically created, depending on the concentrations to be modelled.
+But also depending on the downscale_request. When downscale_request=1 indeed a 'primary' tag is added to the module1 output file.
+
+# Module available for simulation
 With this code you can run simulations with the SHERPA SRR (built i.e. with the git repository SHERPA-training), to evaluate the impact of emission reduction scenarios on concentrations.
 This version of the SHERPA-simulation code has been tested withe the EDGAR2015 emission inventory, and with SRR built from EMEP air quality model simulations.
 
-# Module available for simulation
 The modules that can be used in the code are:
 
 -  Module 1 (scenario assessment): to simulate the impact on air quality of a specific emission reduction scenario (defined also through the previous two steps)
