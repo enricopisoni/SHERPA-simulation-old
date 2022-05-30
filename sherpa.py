@@ -1,3 +1,18 @@
+# 20220530
+
+# for downscaling of NO2
+# - run module 1 for NO2
+# - run module from Bertrand to downscale to 0.01 deg
+
+# for downscaling of PM2.5 or PM10:
+# - run module 1 for PM with downscale_request=0 (reduce all precursors) - get total delta PM
+# - run module 1 for PM with downscale_request=1 (as before, but reduce only PPM) - deta delta PPM
+# - run module from Bertrand to downscale to 0.01 deg (please note that the module uses PM and PPM for its computation...only PPM is downscaled)
+
+#note that now automatic names are created, so that results are not overwritten
+
+###############################################################################
+
 '''
 Created on Jun 23, 2015
 
@@ -86,7 +101,7 @@ from sherpa_globals import path_emission_cdf_test, path_area_cdf_test, path_redu
     path_model_cdf_test, path_result_cdf_test, path_nuts0_cdf_test, path_nuts1_cdf_test, path_nuts2_cdf_test, \
     path_base_conc_cdf_test, path_healthbl_test, path_config_json_test, \
     fua_intersect_dir, dbf_dir, target_list, nuts_intersect_dir, path_natural_dir_test, aggr_zones, \
-    path_logo_test, aggrinp_txt, sector_lst
+    path_logo_test, aggrinp_txt, sector_lst, downscale_request
 from sherpa_auxiliaries import is_number
 from sys import argv
 import os.path
@@ -102,7 +117,8 @@ if __name__ == '__main__':
         
         # run module 1 with test inputs
         start = time()
-        # module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+                downscale_request) #downscale_request=0 nothing change, downscale_request=1 you only reduce PPM emissions
         stop = time()
         print('Module 1 run time: %s sec.' % (stop-start))
 
@@ -117,7 +133,7 @@ if __name__ == '__main__':
         
         # run module 3a test inputs with test inputs
         start = time()
-        module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 
@@ -208,10 +224,12 @@ if __name__ == '__main__':
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
+            downscale_request = argv[8]
             
             # run module 1
             print('running module1')
-            module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
+            module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request)
+
             
         # ---------#
         # module 2 #

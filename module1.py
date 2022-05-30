@@ -60,7 +60,7 @@ class OmegaPowerWindows:
 # function that applies reductions per snap sector and precursor to the emission netcdf
 def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf, 
                           path_reduction_txt, path_result_cdf, 
-		      write_netcdf_output):
+		      write_netcdf_output, pollName, downscale_request):
     """
     Function that applies reductions per snap sector and precursor to the
     emission netcdf.
@@ -68,6 +68,13 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
     # create a dictionary with reductions per precursor and macro sector
     emission_reduction_dict = create_emission_reduction_dict(path_reduction_txt)
     
+    #20220530 if you do downscaling, only reduce PPM
+    if downscale_request==1:
+        emission_reduction_dict['NOx'] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
+        emission_reduction_dict['NMVOC'] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
+        emission_reduction_dict['NH3'] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
+        emission_reduction_dict['SOx'] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
+            
     # open the emission netcdf
     emission_dict = create_emission_dict(path_emission_cdf, precursor_lst)
     
@@ -92,7 +99,12 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
     # create an output netcdf with delta emissions
     # --------------------------------------------
     if write_netcdf_output == True:
-        filename_delta_emission_cdf = path_result_cdf + 'delta_emission.nc'
+        filename_delta_emission_cdf = path_result_cdf + 'DCemis_emepV434_camsV42_' + pollName + '.nc' 
+        
+        #change name of emission file in case of downscaling
+        if downscale_request==1:
+            filename_delta_emission_cdf = path_result_cdf + 'DCemis_emepV434_camsV42_' + pollName + '_primary.nc' 
+                            
         rootgrp = Dataset(filename_delta_emission_cdf, 'w', format='NETCDF3_CLASSIC')
      
         # create dimensions in the netcdf file
@@ -126,7 +138,9 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
     return delta_emission_dict
 
 # function definition of source receptor model
-def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, *progresslog):
+def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request, *progresslog):
+    
+    pollName = path_model_cdf.split('SR_')[1].split('.nc')[0]
     
     # check if a progess log file was passed as argument
     if progresslog:
@@ -168,7 +182,8 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     rootgrp.close()
 
     # calculate the delta emissions, dictionary per pollutant a matrix of dimension n_lat x n_lon
-    delta_emission_dict = create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf, path_reduction_txt, path_result_cdf, write_netcdf_output)
+    delta_emission_dict = create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf, path_reduction_txt, path_result_cdf, write_netcdf_output,
+                                                pollName, downscale_request)
     
     # make a window
     window = create_window(inner_radius)
@@ -237,7 +252,12 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     # create a result netcdf 
     # -----------------------
     if write_netcdf_output == True:
-        filename_result_cdf = path_result_cdf + 'delta_concentration.nc'
+        filename_result_cdf = path_result_cdf + 'DCconc_emepV434_camsV42_' + pollName + '.nc' 
+        
+        #20220530 change name of emission file in case of downscaling
+        if downscale_request==1:
+            filename_result_cdf = path_result_cdf + 'DCconc_emepV434_camsV42_' + pollName + '_primary.nc' 
+
         rootgrp = Dataset(filename_result_cdf, 'w', format='NETCDF3_CLASSIC')
         
         # create dimensions in the netcdf file
