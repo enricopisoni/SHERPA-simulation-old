@@ -1,4 +1,16 @@
 # SHERPA-simulation
+
+## Working with SRR at both 0.1x0.1 and 0.1x0.05 deg resolution
+Now the code has been adapted creating a new 'sherpa_globals.py', to allow simulations for
+
+- SRR at 0.1x0.1 degrees (using 'sherpa_globals_cams42_01_01.py')
+- SRR at 0.1x0.05 degrees (using 'sherpa_globals_cams42_01_005.py')
+
+To use one of the 2 options, please copy 'sherpa_globals_cams42_01_**.py' to 'sherpa_globals.py'
+
+Note that the downscaling feature (presented in the next subsection) works both for 0.1x0.1 and 0.1x0.05 SRR.
+
+## Preparing results for the downscaling module
 In this branch I adapt the 0.1x0.1 deg resolutionSRR to work with a new downscaling module. This module requires a different structure of emissions and concentration files.
 
 For emissions:
