@@ -16,7 +16,7 @@ path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCem
 path_area_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/emiRedOn_01005_Germany.nc'#London_emepCams_0_100_FLIP.nc'
 # reductions per precursor and macro sector
 path_reduction_txt_test = '../input_CAMS42_EMEP_01005/createRedText/user_reduction_GNFR_all_PPM25.txt'#user_reduction_GNFR_all.txt'
-# path_reduction_txt_test = '../input_CAMS42_EMEP_01005/createRedText/user_reduction_GNFR_all_PPM10.txt'#user_reduction_GNFR_all.txt'
+
 path_reduction50all_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
 # reductions per precursor and macro sector for module 3a and 3b
 path_reduction_mod3a1P_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
@@ -31,7 +31,7 @@ path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ug_PM25_rh50.nc'
 # path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_MAXO3.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ppb_O3.nc' 
 # ONLY FOR PM, INCLUDE A VARIABLE RELATED TO THE DOWNSCALING REQUEST
-downscale_request = 1 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
+downscale_request = 0 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
 
 # folder where output will be put
 path_result_cdf_test = '../output_CAMS42_EMEP_01005/'
