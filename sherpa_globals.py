@@ -31,7 +31,7 @@ path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SUR
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_MAXO3.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ppb_O3.nc' 
 # ONLY FOR PM, INCLUDE A VARIABLE RELATED TO THE DOWNSCALING REQUEST
-downscale_request = 1 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
+downscale_request = 0 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
 
 # folder where output will be put
 path_result_cdf_test = '../output_CAMS42_EMEP/'
