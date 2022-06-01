@@ -18,7 +18,7 @@ Created on Jun 23, 2015
 
 simulates the main tool developped by teraria and call the source-receptor model
 
-The sherpa tool can be ran in different modes
+The sherpa tool can be ran in different modes,
 
 1) Module 1: scen_nuts
 ----------------------
