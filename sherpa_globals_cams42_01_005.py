@@ -37,10 +37,10 @@ downscale_request = 0 # 0 if you do not need downscale, 1 if you need downscale 
 path_result_cdf_test = '../output_CAMS42_EMEP_01005/'
 
 # progress log is used when module 1 is called by another module
-path_nuts0_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv0_CAMSEmep.nc'
-path_nuts1_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_CAMSEmep.nc'
-path_nuts2_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv2_CAMSEmep.nc'
-path_nuts3_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv3_CAMSEmep.nc'
+path_nuts0_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_01005_Lv0_EdgarEmep.nc'
+path_nuts1_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_01005_Lv1_EdgarEmep.nc'
+path_nuts2_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_01005_Lv2_EdgarEmep.nc'
+path_nuts3_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_01005_Lv3_EdgarEmep.nc'
 
 path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_PM25_rh50.nc'
 # path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_PM10_rh50.nc'

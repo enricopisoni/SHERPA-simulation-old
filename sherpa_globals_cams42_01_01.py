@@ -24,12 +24,12 @@ path_reduction_mod3a2P_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.
 path_reduction_mod3b_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
 
 # netcdf with model parameters per cell
-# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM25_rh50.nc' 
+path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM25_rh50.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM10_rh50.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_NO2.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_NO.nc' 
 # path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_MAXO3.nc' 
-path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ppb_O3.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ppb_O3.nc' 
 # ONLY FOR PM, INCLUDE A VARIABLE RELATED TO THE DOWNSCALING REQUEST
 downscale_request = 0 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
 
@@ -38,16 +38,16 @@ path_result_cdf_test = '../output_CAMS42_EMEP/'
 
 # progress log is used when module 1 is called by another module
 path_nuts0_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv0_CAMSEmep.nc'
-path_nuts1_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_CAMSEmep.nc'
+path_nuts1_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_EdgarEmep.nc'
 path_nuts2_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv2_CAMSEmep.nc'
 path_nuts3_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv3_CAMSEmep.nc'
 
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_PM25_rh50.nc'
+path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_PM25_rh50.nc'
 # path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_PM10_rh50.nc'
 # path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_NO2.nc'
 # path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_NO.nc'
 # path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_MAXO3.nc'
-path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ppb_O3.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ppb_O3.nc'
 
 #for health
 path_healthbl_test = '../input_CAMS42_EMEP/createImpactFileForSherpa/input/impacts/healthbl_nc.nc'

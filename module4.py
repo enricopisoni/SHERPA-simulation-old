@@ -27,7 +27,7 @@ from numpy import zeros
 from os import remove
 
 # function definition of source receptor model
-def module4(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, *progresslog):
+def module4(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request, *progresslog):
 
     # get precursor list from model
     rootgrp = Dataset(path_model_cdf, 'r')
@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
     # run module 4 without progress log
     start = time()
-    module4(emission_1611_test, 'input/London_region.nc', reduction_file, concentration_1611_test, model_1611_test, path_result_cdf_test)
+    module4(emission_1611_test, 'input/London_region.nc', reduction_file, concentration_1611_test, model_1611_test, path_result_cdf_test, downscale_request)
     stop = time()
     print('Module 4 calculation time = %f' % (stop - start))
     

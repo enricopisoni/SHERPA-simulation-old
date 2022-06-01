@@ -133,19 +133,22 @@ if __name__ == '__main__':
         
         # run module 3a test inputs with test inputs
         start = time()
-        # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+                    # downscale_request)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 
         # run module 3b with test inputs
         start = time()
-#        module3b(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module3b(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+                    # downscale_request)
         stop = time()
         print('Module 3b calculation time = %f' % (stop - start))
 
         # run module 4  with test inputs
         start = time()
-        # module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
+        # module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test, 
+                # downscale_request)
         stop = time()
         print('Module 4 run time: %s sec.' % (stop-start))
         
@@ -168,13 +171,16 @@ if __name__ == '__main__':
         stop = time()
         print('Module 6 calculation time = %f' % (stop - start))
 
-        # run module 7 test inputs    
-        start = time()
-        # module7(path_emission_cdf_test, path_base_conc_cdf_test, path_natural_dir_test,
-        #         path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
-        #         target_list, path_result_cdf_test, path_logo_test, aggr_zones, 'PM25')
-        stop = time()
-        print('Module 7 calculation time = %f' % (stop - start))
+###############################################################################        
+        #20220531 - not used anymore
+        # # run module 7 test inputs    
+        # start = time()
+        # # module7(path_emission_cdf_test, path_base_conc_cdf_test, path_natural_dir_test,
+        # #         path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
+        # #         target_list, path_result_cdf_test, path_logo_test, aggr_zones, 'PM25')
+        # stop = time()
+        # print('Module 7 calculation time = %f' % (stop - start))
+###############################################################################
 
         # run module 8 test inputs        
         start = time()
@@ -185,8 +191,7 @@ if __name__ == '__main__':
         
         # run module 9 test inputs        
         start = time()
-        #module9_aggregation('../input_EDGAR_EMEP/config/aggrinp.json')
-        #module9_aggregation('D:/VAR/sherpaPyInstaller/input_edgar_emep/gui_input/aggrinp.json')
+        # module9_aggregation('../input_EDGAR_EMEP/config/aggrinp.json')        
         stop = time()
         print('Module 9 calculation time = %f' % (stop - start))
         

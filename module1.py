@@ -103,7 +103,7 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
         
         #change name of emission file in case of downscaling
         if downscale_request==1:
-            filename_delta_emission_cdf = path_result_cdf + 'DCemis_emepV434_camsV42_' + pollName + '_primary.nc' 
+            filename_delta_emission_cdf = path_result_cdf + 'DCemis_emepV434_camsV42_' + pollName[0:8] + 'P' + pollName[8:] + '_.nc' 
                             
         rootgrp = Dataset(filename_delta_emission_cdf, 'w', format='NETCDF3_CLASSIC')
      
@@ -256,7 +256,7 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         
         #20220530 change name of emission file in case of downscaling
         if downscale_request==1:
-            filename_result_cdf = path_result_cdf + 'DCconc_emepV434_camsV42_' + pollName + '_primary.nc' 
+            filename_result_cdf = path_result_cdf + 'DCconc_emepV434_camsV42_' + pollName[0:8] + 'P' + pollName[8:] + '_.nc' 
 
         rootgrp = Dataset(filename_result_cdf, 'w', format='NETCDF3_CLASSIC')
         
@@ -271,7 +271,7 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         longitudes[:] = longitude_array
     
         # create delta concentration data
-        delta_conc_pol = rootgrp.createVariable('delta_concentration', 'f4', ('latitude', 'longitude',))
+        delta_conc_pol = rootgrp.createVariable('delta_conc', 'f4', ('latitude', 'longitude',))
         delta_conc_pol.units = units_for_output #u'\u03BC'+'g/m'+ u'\u00B3' # 'ug/m3' '\u03bcg/m\u00B3'  
         delta_conc_pol[:] = delta_conc
         

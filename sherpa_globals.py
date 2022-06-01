@@ -8,56 +8,56 @@ define some global variables
 
 # variabels for testing
 # absolute emission per cell and macro sector
-path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_01_005.nc'
-#path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_pm10.nc'
+path_emission_cdf_test = '../input_CAMS42_EMEP/createBCemiGNFR/output/BCemis_emepV434_camsV42.nc'
+#path_emission_cdf_test = '../input_CAMS42_EMEP/createBCemiGNFR/output/BCemis_emepV434_camsV42_pm10.nc'
 
 # netcdf with cells where reductions have to be applied (value between 0 and 1)
-# path_area_cdf_test = 'input_CAMS42_EMEP_01005/EMI_RED_NUTS3_ITALY.nc'
-path_area_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/emiRedOn_01005_Germany.nc'#London_emepCams_0_100_FLIP.nc'
+# path_area_cdf_test = 'input_CAMS42_EMEP/EMI_RED_NUTS3_ITALY.nc'
+path_area_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/emiRedOn_Germany.nc'#London_emepCams_0_100_FLIP.nc'
 # reductions per precursor and macro sector
-path_reduction_txt_test = '../input_CAMS42_EMEP_01005/createRedText/user_reduction_GNFR_all_PPM25.txt'#user_reduction_GNFR_all.txt'
-
-path_reduction50all_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
+# path_reduction_txt_test = '../input_CAMS42_EMEP/createRedText/user_reduction_GNFR_PPM25.txt'#user_reduction_GNFR_all.txt'
+path_reduction_txt_test = '../input_CAMS42_EMEP/createRedText/user_reduction_GNFR_PPM10.txt'#user_reduction_GNFR_all.txt'
+path_reduction50all_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
 # reductions per precursor and macro sector for module 3a and 3b
-path_reduction_mod3a1P_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
-path_reduction_mod3a2P_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
-path_reduction_mod3b_txt_test = '../input_CAMS42_EMEP_01005/user_reduction_GNFR_50p.txt'
+path_reduction_mod3a1P_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
+path_reduction_mod3a2P_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
+path_reduction_mod3b_txt_test = '../input_CAMS42_EMEP/user_reduction_GNFR_50p.txt'
 
 # netcdf with model parameters per cell
-path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ug_PM25_rh50.nc' 
-# path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ug_PM10_rh50.nc' 
-# path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ug_NO2.nc' 
-# path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ug_NO.nc' 
-# path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_MAXO3.nc' 
-# path_model_cdf_test = '../input_CAMS42_EMEP_01005/SRR/SR_SURF_ppb_O3.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM25_rh50.nc' 
+path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_PM10_rh50.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_NO2.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ug_NO.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_MAXO3.nc' 
+# path_model_cdf_test = '../input_CAMS42_EMEP/SRR/withGlobalAttrPPM25_PPM10/SR_SURF_ppb_O3.nc' 
 # ONLY FOR PM, INCLUDE A VARIABLE RELATED TO THE DOWNSCALING REQUEST
-downscale_request = 0 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
+downscale_request = 1 # 0 if you do not need downscale, 1 if you need downscale but only for PM concentrations
 
 # folder where output will be put
-path_result_cdf_test = '../output_CAMS42_EMEP_01005/'
+path_result_cdf_test = '../output_CAMS42_EMEP/'
 
 # progress log is used when module 1 is called by another module
-path_nuts0_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv0_CAMSEmep.nc'
-path_nuts1_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_CAMSEmep.nc'
-path_nuts2_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv2_CAMSEmep.nc'
-path_nuts3_cdf_test = '../input_CAMS42_EMEP_01005/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv3_CAMSEmep.nc'
+path_nuts0_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv0_CAMSEmep.nc'
+path_nuts1_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv1_EdgarEmep.nc'
+path_nuts2_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv2_CAMSEmep.nc'
+path_nuts3_cdf_test = '../input_CAMS42_EMEP/createRedArea/output/EMI_RED_ATLAS_NUTS_Lv3_CAMSEmep.nc'
 
-path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_PM25_rh50.nc'
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_PM10_rh50.nc'
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_NO2.nc'
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ug_NO.nc'
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_MAXO3.nc'
-# path_base_conc_cdf_test = '../input_CAMS42_EMEP_01005/createBCConc/output/BCconc_emepV434_camsv42_01005_SURF_ppb_O3.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_PM25_rh50.nc'
+path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_PM10_rh50.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_NO2.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ug_NO.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_MAXO3.nc'
+# path_base_conc_cdf_test = '../input_CAMS42_EMEP/createBCConc/output/BCconc_emepV434_camsv42_SURF_ppb_O3.nc'
 
 #for health
-path_healthbl_test = '../input_CAMS42_EMEP_01005/createImpactFileForSherpa/input/impacts/healthbl_nc.nc'
-path_config_json_test = '../input_CAMS42_EMEP_01005/config/sharedvariables.json'
+path_healthbl_test = '../input_CAMS42_EMEP/createImpactFileForSherpa/input/impacts/healthbl_nc.nc'
+path_config_json_test = '../input_CAMS42_EMEP/config/sharedvariables.json'
 
-fua_intersect_dir = '../input_CAMS42_EMEP_01005/createGridIntersect/output_mod7/fua/'
-nuts_intersect_dir = '../input_CAMS42_EMEP_01005/createGridIntersect/output_mod7/nuts/'
-dbf_dir = '../input_CAMS42_EMEP_01005/createGridIntersect/output_mod7/'
-target_list = '../input_CAMS42_EMEP_01005/createGridIntersect/output_mod7/AM_targets.txt'
-path_natural_dir_test = '../input_CAMS42_EMEP_01005/createDustSalt/output/'
+fua_intersect_dir = '../input_CAMS42_EMEP/createGridIntersect/output_mod7/fua/'
+nuts_intersect_dir = '../input_CAMS42_EMEP/createGridIntersect/output_mod7/nuts/'
+dbf_dir = '../input_CAMS42_EMEP/createGridIntersect/output_mod7/'
+target_list = '../input_CAMS42_EMEP/createGridIntersect/output_mod7/AM_targets.txt'
+path_natural_dir_test = '../input_CAMS42_EMEP/createDustSalt/output/'
 aggr_zones='fua'
 path_logo_test=''
 aggrinp_txt=''

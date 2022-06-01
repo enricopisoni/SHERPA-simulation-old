@@ -1,5 +1,17 @@
 # SHERPA-simulation
 
+## Testing the current used modules
+The current used modules are:
+
+-  Module 1 (scenario assessment): to simulate the impact on air quality of a specific emission reduction scenario (defined also through the previous two steps)
+-  Module 3 (Source allocation): to understand how the air quality in a given area is influenced by different sources. This module runs in two modes: precursor-based source allocation, and sector-based one. Note that this module works running module 4 and module 1, in sequence.
+-  Module 4: (Potency): this module computes potencies, and it is not directly launched by the user. On the contrary, it is used by Module 3.
+-  Module 6 (Governance): to analyze how one should coordinate with the surrounding regions to optimally improve air quality;
+-  Module 8 (health impact): to evaluate PM2.5 health-related impact, when running module 1
+-  Module 9 (aggregation): to aggregate emissions and concentrations, at NUTS or FUAs level.
+
+All modules have been tested with the 0.1x0.1 (also with downscaling) version; for the 0.1x0.05 version all modules works, except module 8 (health impact evalution needs additional files, to be created) and module 9 (this needs also interaction with GUI to be tested).
+
 ## Working with SRR at both 0.1x0.1 and 0.1x0.05 deg resolution
 Now the code has been adapted creating a new 'sherpa_globals.py', to allow simulations for
 
