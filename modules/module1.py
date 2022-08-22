@@ -141,15 +141,7 @@ def create_delta_emission(path_emission_cdf, precursor_lst, path_area_cdf,
 
 # function definition of source receptor model
 def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request, *progresslog):
-    manager = mp.Manager()
-    global alpha_dict
-    global omega_dict
-    global pad_delta_emission_dict
-    global n_lon_inner_win
-    global n_lat_inner_win
-    global win_pow_omega
-    global n_lon
-    global precursor_lst
+    global shared_dictionary
     
     pollName = path_model_cdf.split('SR_')[1].split('.nc')[0]
     
@@ -216,6 +208,16 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     win_pow_omega = OmegaPowerWindows(2 * inner_radius + 1)
     
     # loop over all cells of the domain
+    shared_dictionary = {
+        'alpha_dict': alpha_dict, 
+        'omega_dict': omega_dict, 
+        'pad_delta_emission_dict': pad_delta_emission_dict, 
+        'n_lon_inner_win': n_lon_inner_win, 
+        'n_lat_inner_win': n_lat_inner_win, 
+        'win_pow_omega': win_pow_omega, 
+        'n_lon': n_lon, 
+        'precursor_lst': precursor_lst
+    }
     pool = mp.Pool()
     res = pool.map(work, range(n_lat))
     for i in range(n_lat):
@@ -276,19 +278,20 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     return mod1_res
 
 def work(ie):
-    res = zeros(n_lon)* float('nan')
-    for je in range(n_lon):
-            for precursor in precursor_lst:
-                alpha_ij = alpha_dict[precursor][ie, je]
-                omega_ij = omega_dict[precursor][ie, je]
+    d = shared_dictionary
+    res = zeros(d['n_lon'])* float('nan')
+    for je in range(d['n_lon']):
+            for precursor in d['precursor_lst']:
+                alpha_ij = d['alpha_dict'][precursor][ie, je]
+                omega_ij = d['omega_dict'][precursor][ie, je]
                 if not(isnan(alpha_ij)):
                     # if the model is available remove NaN value
                     if isnan(res[je]):
                         res[je] = 0
                     # select the window of emissions around the target cell
-                    emissions_centre = pad_delta_emission_dict[precursor][ie:(ie + n_lon_inner_win), je:(je + n_lat_inner_win)]
+                    emissions_centre = d['pad_delta_emission_dict'][precursor][ie:(ie + d['n_lon_inner_win']), je:(je + d['n_lat_inner_win'])]
                     # apply the weights to the emissions and sum them over the whole window
-                    weighted_emissions_centre = (win_pow_omega.getOmegaPowerWindow(omega_ij) * emissions_centre).sum()
+                    weighted_emissions_centre = (d['win_pow_omega'].getOmegaPowerWindow(omega_ij) * emissions_centre).sum()
                     # sum the contribution of the precursor
                     res[je] = res[je] + alpha_ij * weighted_emissions_centre
     return res
