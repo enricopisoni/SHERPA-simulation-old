@@ -86,18 +86,18 @@ Output: - text file with NUTS code and corresponding concentration change in the
 @author: degraba
 '''
 
-from module1 import module1
+from modules import module1
 #from module2 import module2
-from module3 import module3a, module3b
-from module4 import module4
+from modules import module3a, module3b
+from modules import module4
 #from module5 import module5
-from module6 import module6
+from modules import module6
 #from module7_SA import module7
-from module8_healthia import module8_healthia
-from module9_aggregation import  module9_aggregation
+from modules import module8_healthia
+from modules import  module9_aggregation
 #20211020 - EP
-from module10 import module10
-from sherpa_globals import path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, \
+from modules import module10
+from globals import path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, \
     path_model_cdf_test, path_result_cdf_test, path_nuts0_cdf_test, path_nuts1_cdf_test, path_nuts2_cdf_test, \
     path_base_conc_cdf_test, path_healthbl_test, path_config_json_test, \
     fua_intersect_dir, dbf_dir, target_list, nuts_intersect_dir, path_natural_dir_test, aggr_zones, \

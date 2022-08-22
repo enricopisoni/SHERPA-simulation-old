@@ -18,9 +18,9 @@ The calulated potencies are:
 '''
 # imports
 from netCDF4 import Dataset
-from module1 import module1
+from modules import module1
 from time import time
-from sherpa_globals import alpha_potency, path_result_cdf_test, path_reduction50all_txt_test
+from globals import alpha_potency, path_result_cdf_test, path_reduction50all_txt_test
 # path_emission_cdf_test, path_base_conc_cdf_test, path_model_cdf_test   
 from sherpa_auxiliaries import create_emission_reduction_dict, write_progress_log, read_progress_log
 from numpy import zeros

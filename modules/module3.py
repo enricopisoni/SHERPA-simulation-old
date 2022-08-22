@@ -12,9 +12,9 @@ The calculated potentials are:
 @author: degraba
 '''
 from netCDF4 import Dataset
-from module4 import module4
+from modules import module4
 from sherpa_auxiliaries import create_emission_reduction_dict, write_progress_log
-from sherpa_globals import alpha_potency, sector_lst, \
+from globals import alpha_potency, sector_lst, \
     path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3a1P_txt_test, path_reduction_mod3a2P_txt_test, \
     path_reduction_mod3b_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test
 from time import time

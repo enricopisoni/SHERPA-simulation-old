@@ -7,8 +7,8 @@ this script runs some tests on module 6
 '''
 
 from time import time
-from module1 import module1
-from module6 import module6
+from modules import module1
+from modules import module6
 from os import rename, remove
 import re
 

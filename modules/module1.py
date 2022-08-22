@@ -32,7 +32,7 @@ from sherpa_auxiliaries import (create_emission_reduction_dict,
     create_emission_dict, create_window, read_progress_log, 
     deltaNOx_to_deltaNO2)
 #EP 20210518
-from sherpa_globals import sector_lst
+from globals import sector_lst
 
 # Window class that returns aggregated weighting windows for a given omega
 class OmegaPowerWindows:

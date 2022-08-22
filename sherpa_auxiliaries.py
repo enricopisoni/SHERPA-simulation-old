@@ -11,7 +11,7 @@ from numpy import zeros, sqrt, array
 import pandas as pd
 import sys
 #EP 20210518
-from sherpa_globals import sector_lst
+from globals import sector_lst
 
 # create a dictionary with emission reductions per precursor and nuts
 #--------------------------------------------------------------------

@@ -6,7 +6,7 @@ This module runs some tests for module 1
 @author: degraba
 '''
 
-from module1 import module1
+from modules import module1
 from time import time
 from os import rename
 

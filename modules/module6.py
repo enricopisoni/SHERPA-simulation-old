@@ -19,10 +19,10 @@ from numpy import lib, zeros, sum, power, array
 from math import isnan
 # path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_model_cdf_test,
 import sys
-from sherpa_globals import alpha_potency
+from globals import alpha_potency
 from sherpa_auxiliaries import create_emission_reduction_dict, create_emission_dict, create_window, deltaNOx_to_deltaNO2
 #EP 20210518
-from sherpa_globals import sector_lst
+from globals import sector_lst
 
 # function that applies reductions per snap sector and precursor to the emission netcdf
 def create_delta_emission(path_emission_cdf, precursor_lst, reduction_area_array, path_reduction_txt):

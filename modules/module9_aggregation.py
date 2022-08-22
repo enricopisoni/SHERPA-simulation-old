@@ -20,7 +20,7 @@ import ast
 from sherpa_auxiliaries import read_nuts_area 
 from sherpa_auxiliaries import read_nc
 #EP 20210518
-from sherpa_globals import sector_lst
+from globals import sector_lst
 
 
 def area_calc(rw, lat_area_dct):
