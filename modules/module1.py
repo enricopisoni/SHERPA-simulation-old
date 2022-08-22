@@ -28,6 +28,7 @@ import sys
 from time import time
 from netCDF4 import Dataset
 from numpy import lib, zeros, sum, power, sqrt
+from numpy.ma import is_masked
 from sherpa_auxiliaries import (create_emission_reduction_dict, 
     create_emission_dict, create_window, read_progress_log, 
     deltaNOx_to_deltaNO2)
@@ -284,7 +285,7 @@ def work(ie):
             for precursor in d['precursor_lst']:
                 alpha_ij = d['alpha_dict'][precursor][ie, je]
                 omega_ij = d['omega_dict'][precursor][ie, je]
-                if not(isnan(alpha_ij)):
+                if not(is_masked(alpha_ij)):
                     # if the model is available remove NaN value
                     if isnan(res[je]):
                         res[je] = 0
