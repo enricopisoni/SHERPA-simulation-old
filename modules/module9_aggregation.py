@@ -17,8 +17,7 @@ from time import time
 import json
 import ast 
 
-from sherpa_auxiliaries import read_nuts_area 
-from sherpa_auxiliaries import read_nc
+from utils import read_nuts_area,read_nc
 #EP 20210518
 from globals import sector_lst
 
@@ -185,7 +184,7 @@ def module9_aggregation(aggrinp_txt):
                     areatot = 100 #20210201EP, change as percentage in the grid_intersect file are between 0 and 100, not between 0 and 1                    
                 # this if statement is to take care of areas in the 
                 # shape file which are outside the domain 
-                if areatot is not 0: 
+                if areatot != 0: 
                     value=areaxvar/areatot
                 else:
                     value= float('NaN')

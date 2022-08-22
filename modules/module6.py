@@ -20,7 +20,7 @@ from math import isnan
 # path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_model_cdf_test,
 import sys
 from globals import alpha_potency
-from sherpa_auxiliaries import create_emission_reduction_dict, create_emission_dict, create_window, deltaNOx_to_deltaNO2
+from utils import create_emission_reduction_dict, create_emission_dict, create_window, deltaNOx_to_deltaNO2
 #EP 20210518
 from globals import sector_lst
 

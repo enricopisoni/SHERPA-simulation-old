@@ -102,7 +102,7 @@ from globals import path_emission_cdf_test, path_area_cdf_test, path_reduction_t
     path_base_conc_cdf_test, path_healthbl_test, path_config_json_test, \
     fua_intersect_dir, dbf_dir, target_list, nuts_intersect_dir, path_natural_dir_test, aggr_zones, \
     path_logo_test, aggrinp_txt, sector_lst, downscale_request
-from sherpa_auxiliaries import is_number
+from utils import is_number
 from sys import argv
 import os.path
 from time import time

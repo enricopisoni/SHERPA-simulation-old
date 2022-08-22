@@ -22,7 +22,7 @@ from modules import module1
 from time import time
 from globals import alpha_potency, path_result_cdf_test, path_reduction50all_txt_test
 # path_emission_cdf_test, path_base_conc_cdf_test, path_model_cdf_test   
-from sherpa_auxiliaries import create_emission_reduction_dict, write_progress_log, read_progress_log
+from utils import create_emission_reduction_dict, write_progress_log, read_progress_log
 from numpy import zeros
 from os import remove
 
