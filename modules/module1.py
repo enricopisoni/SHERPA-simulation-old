@@ -29,12 +29,13 @@ from time import time
 from netCDF4 import Dataset
 from numpy import lib, zeros, sum, power, sqrt
 from numpy.ma import is_masked
+import multiprocessing as mp
 from utils import (create_emission_reduction_dict, 
     create_emission_dict, create_window, read_progress_log, 
     deltaNOx_to_deltaNO2)
 #EP 20210518
 from globals import sector_lst
-import multiprocessing as mp
+from tqdm import tqdm
 
 # Window class that returns aggregated weighting windows for a given omega
 class OmegaPowerWindows:
@@ -220,11 +221,11 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         'precursor_lst': precursor_lst
     }
     pool = mp.Pool()
-    res = pool.map(work, range(n_lat))
+    res = list(tqdm(pool.imap(work, range(n_lat)), total=n_lat, desc="Module1 calculation"))
     for i in range(n_lat):
         delta_conc[i] = res[i]
     pool.close()
-
+    pool.join()
     # In the case of NO2 the variable 'delta_conc' contains the NOx concentrations as NO2-equivalent.
     # NO2 concentration and concentration difference are calculated applying an empiric formula
     # check if the pollutant is NO2, if so NO2 has to be calculated from NOx results w/ function 'deltaNOx_to_deltaNO2'
@@ -296,6 +297,7 @@ def work(ie):
                     # sum the contribution of the precursor
                     res[je] = res[je] + alpha_ij * weighted_emissions_centre
     return res
+    
 
 if __name__ == '__main__':
     

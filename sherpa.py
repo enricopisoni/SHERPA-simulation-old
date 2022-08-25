@@ -106,19 +106,21 @@ from utils import is_number
 from sys import argv
 import os.path
 from time import time
+import multiprocessing as mp
 
 #20220527, last commigg before starting the downscaling work
 
+pool = mp.Pool()
 
 if __name__ == '__main__':
-    
+
     if len(argv) == 1:
         # no command arguments are provided, sherpa is ran in test mode with fixed input arguments
         
         # run module 1 with test inputs
         start = time()
-        module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-                downscale_request) #downscale_request=0 nothing change, downscale_request=1 you only reduce PPM emissions
+        # module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+        #         downscale_request) #downscale_request=0 nothing change, downscale_request=1 you only reduce PPM emissions
         stop = time()
         print('Module 1 run time: %s sec.' % (stop-start))
 
@@ -133,15 +135,15 @@ if __name__ == '__main__':
         
         # run module 3a test inputs with test inputs
         start = time()
-        # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-                    # downscale_request)
+        module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+                    downscale_request)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 
         # run module 3b with test inputs
         start = time()
         # module3b(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-                    # downscale_request)
+        #             downscale_request)
         stop = time()
         print('Module 3b calculation time = %f' % (stop - start))
 
@@ -370,7 +372,6 @@ if __name__ == '__main__':
         else:
             print('unknown module %d' % module)
         
-
     pass
 
 
