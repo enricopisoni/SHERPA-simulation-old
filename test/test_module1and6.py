@@ -7,12 +7,19 @@ this script runs some tests on module 6
 '''
 
 from time import time
-from modules import module1
-from modules import module6
-from os import rename, remove
+from os import rename, remove, getcwd
+import sys
 import re
 
 if __name__ == '__main__':
+
+    # Check the current working directory in order to import the main folder of the project
+    # This will allow to correctly import the modules folder, otherwise the modules folder would not be visible
+    if (getcwd().endswith('test')):
+        sys.path.append("..")
+    else:
+        sys.path.append(".")
+    from modules import module1, module6
     
     # run module 6
     # lastest model on 2017/04/04: O:/Integrated_assessment/SHERPA/20170322_v18_SrrResults_PotencyBased/

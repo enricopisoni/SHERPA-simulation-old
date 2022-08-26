@@ -5,13 +5,20 @@ This module runs some tests for module 1
 
 @author: degraba
 '''
-
-from modules import module1
 from time import time
-from os import rename
+from os import rename, getcwd
+import sys
 
 if __name__ == '__main__':
 
+
+    # Check the current working directory in order to import the main folder of the project
+    # This will allow to correctly import the modules folder, otherwise the modules folder would not be visible
+    if (getcwd().endswith('test')):
+        sys.path.append("..")
+    else:
+        sys.path.append(".")
+    from modules import module1
     # lastest model on 2017/04/04: O:/Integrated_assessment/SHERPA/20170322_v18_SrrResults_PotencyBased/
     model_path = 'O:/Integrated_assessment/SHERPA/20170322_v18_SrrResults_PotencyBased/'
     emission_folder = model_path + '1_base_emissions/'
