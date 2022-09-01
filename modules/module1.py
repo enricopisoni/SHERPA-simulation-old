@@ -24,6 +24,7 @@ Enrico agrees with this nice explanation of module 1
 
 # imports
 from math import isnan
+from multiprocessing import shared_memory
 import sys
 from time import time
 from netCDF4 import Dataset
@@ -243,9 +244,11 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         'precursor_lst': precursor_lst
     }
     f = open('dict', 'wb')
-    pickle.dump(shared_dictionary, f)
+    bytes_dict = pickle.dumps(shared_dictionary)
+    sm = shared_memory.SharedMemory(create=True, size=len(bytes_dict))
+    sm.buf[0:] = bytes_dict
     f.close()
-    pool = mp.Pool(initializer=init, processes=6)
+    pool = mp.Pool(initializer=init, initargs=(sm.name,), processes=6)
     res = list(tqdm(pool.imap(work, range(n_lat)),
                total=n_lat, desc="Module1 calculation"))
     for i in range(n_lat):
@@ -311,11 +314,10 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     return mod1_res
 
 
-def init():
+def init(smm):
     global shared_dictionary
-    f = open('dict', 'rb')
-    shared_dictionary = pickle.load(f)
-    f.close()
+    sm = shared_memory.SharedMemory(name=smm)
+    shared_dictionary = pickle.loads(sm.buf)
 
 
 def work(ie):
