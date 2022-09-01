@@ -9,7 +9,7 @@
 # - run module 1 for PM with downscale_request=1 (as before, but reduce only PPM) - deta delta PPM
 # - run module from Bertrand to downscale to 0.01 deg (please note that the module uses PM and PPM for its computation...only PPM is downscaled)
 
-#note that now automatic names are created, so that results are not overwritten
+# note that now automatic names are created, so that results are not overwritten
 
 ###############################################################################
 
@@ -94,7 +94,7 @@ from modules import module4
 from modules import module6
 #from module7_SA import module7
 from modules import module8_healthia
-from modules import  module9_aggregation
+from modules import module9_aggregation
 #20211020 - EP
 from modules import module10
 from globals import path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, \
@@ -108,35 +108,36 @@ import os.path
 from time import time
 import multiprocessing as mp
 
-#20220527, last commigg before starting the downscaling work
+# 20220527, last commigg before starting the downscaling work
 
-pool = mp.Pool()
 
 if __name__ == '__main__':
+    mp.freeze_support()
+    mp.set_start_method('spawn')
 
     if len(argv) == 1:
         # no command arguments are provided, sherpa is ran in test mode with fixed input arguments
-        
+
         # run module 1 with test inputs
         start = time()
-        # module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-        #         downscale_request) #downscale_request=0 nothing change, downscale_request=1 you only reduce PPM emissions
+        module1(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+                downscale_request)  # downscale_request=0 nothing change, downscale_request=1 you only reduce PPM emissions
         stop = time()
         print('Module 1 run time: %s sec.' % (stop-start))
 
-###############################################################################        
-        #20200318 - module not used anymore
+###############################################################################
+        # 20200318 - module not used anymore
         # run module 2 with test inputs
 #        start = time()
 #        module2(path_emission_cdf_test, path_nuts0_cdf_test, path_reduction_txt_test, path_model_cdf_test, path_result_cdf_test)
 #        stop = time()
 #        print('Module 2 run time: %s sec.' % (stop-start))
 ###############################################################################
-        
+
         # run module 3a test inputs with test inputs
         start = time()
-        module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-                    downscale_request)
+        # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+        #          downscale_request)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 
@@ -149,21 +150,21 @@ if __name__ == '__main__':
 
         # run module 4  with test inputs
         start = time()
-        # module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test, 
-                # downscale_request)
+        # module4(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
+        # downscale_request)
         stop = time()
         print('Module 4 run time: %s sec.' % (stop-start))
-        
-        
-###############################################################################        
-        #20200318 - module not used anymore        
+
+
+###############################################################################
+        # 20200318 - module not used anymore
 #        # run module 5 test inputs
 #        start = time()
 #        module5(path_emission_cdf_test, path_nuts0_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test)
 #        stop = time()
 #        print('Module 5 calculation time = %f' % (stop - start))
 ###############################################################################
-        
+
         # run module 6 test inputs
         start = time()
         # paris
@@ -173,140 +174,145 @@ if __name__ == '__main__':
         stop = time()
         print('Module 6 calculation time = %f' % (stop - start))
 
-###############################################################################        
-        #20220531 - not used anymore
-        # # run module 7 test inputs    
+###############################################################################
+        # 20220531 - not used anymore
+        # # run module 7 test inputs
         # start = time()
         # # module7(path_emission_cdf_test, path_base_conc_cdf_test, path_natural_dir_test,
-        # #         path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
+        # #         path_model_cdf_test, fua_intersect_dir, nuts_intersect_dir, dbf_dir,
         # #         target_list, path_result_cdf_test, path_logo_test, aggr_zones, 'PM25')
         # stop = time()
         # print('Module 7 calculation time = %f' % (stop - start))
 ###############################################################################
 
-        # run module 8 test inputs        
+        # run module 8 test inputs
         start = time()
         # module8_healthia(path_healthbl_test, path_result_cdf_test,
         #                 path_config_json_test, path_base_conc_cdf_test)
         stop = time()
         print('Module 8 calculation time = %f' % (stop - start))
-        
-        # run module 9 test inputs        
+
+        # run module 9 test inputs
         start = time()
-        # module9_aggregation('../input_EDGAR_EMEP/config/aggrinp.json')        
+        # module9_aggregation('../input_EDGAR_EMEP/config/aggrinp.json')
         stop = time()
         print('Module 9 calculation time = %f' % (stop - start))
-        
-        #EP 20211020
-        # run module 10 test inputs        
+
+        # EP 20211020
+        # run module 10 test inputs
         start = time()
-        #Input file from Alessandro
-        path_input_txt='./inputBB/costs_input.csv'
-        #path_input_txt='./inputBB/costs_input_nognfr13.csv'
-        #Static database of costs
-        path_datab_txt='./inputBB/SHERPA_unitc_DB_CAO2_2015.csv'
-        #Output file to be managed by Alessandro 
-        path_costd_txt='./outputBB/costdetails.txt'
+        # Input file from Alessandro
+        path_input_txt = './inputBB/costs_input.csv'
+        # path_input_txt='./inputBB/costs_input_nognfr13.csv'
+        # Static database of costs
+        path_datab_txt = './inputBB/SHERPA_unitc_DB_CAO2_2015.csv'
+        # Output file to be managed by Alessandro
+        path_costd_txt = './outputBB/costdetails.txt'
         # module10(path_input_txt,path_datab_txt,path_costd_txt)
-        
+
         stop = time()
         print('Module 10 calculation time = %f' % (stop - start))
-    
+
     else:
         # check which module has to be ran
         module = int(argv[1])
 
         # check if all files (emissions, emission reduction, model) exist
-        for i_input in range(2, len(argv)):    
+        for i_input in range(2, len(argv)):
             if not(os.path.exists(argv[i_input])) and not(is_number(argv[i_input])):
-                    print('WARNING: if %s is a file it does not exist!' % argv[i_input])
-        
+                print('WARNING: if %s is a file it does not exist!' %
+                      argv[i_input])
+
         # ---------#
         # module 1 #
         # ---------#
         if module == 1:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_area_cdf = argv[3]
             path_reduction_txt = argv[4]
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
             downscale_request = argv[8]
-            
+
             # run module 1
             print('running module1')
-            module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request)
+            module1(path_emission_cdf, path_area_cdf, path_reduction_txt,
+                    path_base_conc_cdf, path_model_cdf, path_result_cdf, downscale_request)
 
-            
         # ---------#
         # module 2 #
         # ---------#
         # elif module == 2:
-        #     path_emission_cdf = argv[2]     
+        #     path_emission_cdf = argv[2]
         #     path_nuts_cdf = argv[3]
         #     path_reduction_txt = argv[4]
         #     path_model_cdf = argv[5]
         #     path_result_cdf = argv[6]
-            
+
         #     module2(path_emission_cdf, path_nuts_cdf, path_reduction_txt, path_model_cdf, path_result_cdf)
 
         # ---------#
         # module 3a #
         # ---------#
         elif module == 31:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_area_cdf = argv[3]
             path_reduction_txt = argv[4]
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
-            
-            module3a(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
+
+            module3a(path_emission_cdf, path_area_cdf, path_reduction_txt,
+                     path_base_conc_cdf, path_model_cdf, path_result_cdf)
 
         # ----------#
         # module 3b #
         # ----------#
         elif module == 32:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_area_cdf = argv[3]
             path_reduction_txt = argv[4]
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
-            
-            module3b(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
-            
+
+            module3b(path_emission_cdf, path_area_cdf, path_reduction_txt,
+                     path_base_conc_cdf, path_model_cdf, path_result_cdf)
+
         # ---------#
         # module 4 #
         # ---------#
         elif module == 4:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_area_cdf = argv[3]
             path_reduction_txt = argv[4]
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
-            
-            module4(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
-            
+
+            module4(path_emission_cdf, path_area_cdf, path_reduction_txt,
+                    path_base_conc_cdf, path_model_cdf, path_result_cdf)
+
         # ---------#
         # module 5 #
         # ---------#
         elif module == 5:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_nuts_cdf = argv[3]
             path_reduction_txt = argv[4]
             path_base_conc_cdf = argv[5]
             path_model_cdf = argv[6]
             path_result_cdf = argv[7]
-            
-            module5(path_emission_cdf, path_nuts_cdf, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
+
+            module5(path_emission_cdf, path_nuts_cdf, path_reduction_txt,
+                    path_base_conc_cdf, path_model_cdf, path_result_cdf)
 
         # ---------#
         # module 6 #
         # ---------#
         elif module == 6:
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_nuts_cdf = argv[3]
             cell_lat = argv[4]
             cell_lon = argv[5]
@@ -314,17 +320,17 @@ if __name__ == '__main__':
             path_base_conc_cdf = argv[7]
             path_model_cdf = argv[8]
             path_result_cdf = argv[9]
-            
-            module6(path_emission_cdf, path_nuts_cdf, cell_lat, cell_lon, path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
+
+            module6(path_emission_cdf, path_nuts_cdf, cell_lat, cell_lon,
+                    path_reduction_txt, path_base_conc_cdf, path_model_cdf, path_result_cdf)
 
         # ---------#
         # module 7 #
         # ---------#
 
-        
         elif module == 7:
 
-            path_emission_cdf = argv[2]     
+            path_emission_cdf = argv[2]
             path_base_conc_cdf = argv[3]
             path_natural_dir = argv[4]
             path_model_cdf = argv[5]
@@ -336,43 +342,40 @@ if __name__ == '__main__':
             path_logo = argv[11]
             aggr_zones_in = argv[12]
             pollutant = argv[13]
-            
+
             module7(path_emission_cdf, path_base_conc_cdf, path_natural_dir,
-                path_model_cdf, fua_intersect_dir, nuts_intersect_dir, dbf_dir, 
-                target_list, path_result_cdf, path_logo, aggr_zones_in, pollutant)
+                    path_model_cdf, fua_intersect_dir, nuts_intersect_dir, dbf_dir,
+                    target_list, path_result_cdf, path_logo, aggr_zones_in, pollutant)
 
         # ---------#
         # module 8 #
         # ---------#
-        
+
         elif module == 8:
-            path_healthbl = argv[2]     
+            path_healthbl = argv[2]
             path_result_cdf = argv[3]
             path_config_json = argv[4]
             if argv[5]:
-                path_base_conc_cdf = argv[5]           
-            module8_healthia(path_healthbl, path_result_cdf, path_config_json, path_base_conc_cdf)
-       
+                path_base_conc_cdf = argv[5]
+            module8_healthia(path_healthbl, path_result_cdf,
+                             path_config_json, path_base_conc_cdf)
+
         # ---------#
         # module 9 #
         # ---------#
-        
+
         elif module == 9:
-            path_aggrinp_txt = argv[2]     
+            path_aggrinp_txt = argv[2]
             module9_aggregation(path_aggrinp_txt)
-            
+
         elif module == 10:
-            path_input_txt = argv[2]     
+            path_input_txt = argv[2]
             path_datab_txt = argv[3]
             path_costd_txt = argv[4]
 
-            module10(path_input_txt,path_datab_txt,path_costd_txt)      
-     
-     
+            module10(path_input_txt, path_datab_txt, path_costd_txt)
+
         else:
             print('unknown module %d' % module)
-        
+
     pass
-
-
-
