@@ -250,7 +250,7 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
     f.close()
     pool = mp.Pool(initializer=init, initargs=(sm.name,), processes=6)
     res = list(tqdm(pool.imap(work, range(n_lat)),
-               total=n_lat, desc="Module1 calculation"))
+               total=n_lat, desc="progress:", bar_format='{desc}{percentage:3.6f}'))
     for i in range(n_lat):
         delta_conc[i] = res[i]
     pool.close()
