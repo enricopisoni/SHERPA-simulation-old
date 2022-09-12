@@ -14,9 +14,7 @@ The calculated potentials are:
 from netCDF4 import Dataset
 from modules import module4
 from utils import create_emission_reduction_dict, write_progress_log
-from globals import alpha_potency, sector_lst, \
-    path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3a1P_txt_test, path_reduction_mod3a2P_txt_test, \
-    path_reduction_mod3b_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test
+from globals import alpha_potency, sector_lst
 from time import time
 from numpy import zeros
 from os import remove
@@ -294,33 +292,5 @@ def module3b(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_con
 
 # test function
 if __name__ == '__main__':
-    
-    # test module 3a for one precursor
-    start = time()
-    module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3a1P_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-             downscale_request)
-    stop = time()
-    print('Module 3a1P calculation time = %f seconds' % (stop - start))
-
-    # test module 3a for multiple precursors
-    start = time()
-    module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3a2P_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-             downscale_request)
-    stop = time()
-    print('Module 3a1P calculation time = %f seconds' % (stop - start))
-
-    # test module 3b 
-    start = time()
-    module3b(path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3b_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test, 
-             downscale_request)
-    stop = time()
-    print('Module 3a1P calculation time = %f seconds' % (stop - start))
-    
-    # test module 3b for multiple snap sectors
-#     fullmodel = 'input/fullFunction/SR_PM25_Y_fullFunction.nc'
-#     start = time()
-#     module3b(path_emission_cdf_test, path_area_cdf_test, path_reduction_mod3b_txt_test, path_base_conc_cdf_test, fullmodel, path_result_cdf_test)
-#     stop = time()
-#     print('Module 3b calculation time = %f' % (stop - start))
 
     pass

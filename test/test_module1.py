@@ -19,6 +19,7 @@ if __name__ == '__main__':
     else:
         sys.path.append(".")
     from modules import module1
+    from globals import downscale_request
     # lastest model on 2017/04/04: O:/Integrated_assessment/SHERPA/20170322_v18_SrrResults_PotencyBased/
     model_path = 'O:/Integrated_assessment/SHERPA/20170322_v18_SrrResults_PotencyBased/'
     emission_folder = model_path + '1_base_emissions/'
@@ -44,7 +45,7 @@ if __name__ == '__main__':
     proglog_filename = output_path + 'proglog'
     # write_progress_log(proglog_filename, 25, 2)
     start = time()
-    module1(path_emission_cdf, reduction_area, reduction_snap, path_base_conc_cdf, path_model_cdf, output_path) 
+    module1(path_emission_cdf, reduction_area, reduction_snap, path_base_conc_cdf, path_model_cdf, output_path, downscale_request) 
     
     stop = time()
     print('Module 1 run time: %s sec.' % (stop-start))
