@@ -255,6 +255,8 @@ def module1(path_emission_cdf, path_area_cdf, path_reduction_txt, path_base_conc
         delta_conc[i] = res[i]
     pool.close()
     pool.join()
+    sm.close()
+    sm.unlink()
     # In the case of NO2 the variable 'delta_conc' contains the NOx concentrations as NO2-equivalent.
     # NO2 concentration and concentration difference are calculated applying an empiric formula
     # check if the pollutant is NO2, if so NO2 has to be calculated from NOx results w/ function 'deltaNOx_to_deltaNO2'
@@ -318,6 +320,7 @@ def init(smm):
     global shared_dictionary
     sm = shared_memory.SharedMemory(name=smm)
     shared_dictionary = pickle.loads(sm.buf)
+    sm.close()
 
 
 def work(ie):
