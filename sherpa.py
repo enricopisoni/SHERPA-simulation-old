@@ -106,14 +106,11 @@ from utils import is_number
 from sys import argv
 import os.path
 from time import time
-import multiprocessing as mp
 
 # 20220527, last commigg before starting the downscaling work
 
 
 if __name__ == '__main__':
-    mp.freeze_support()
-    mp.set_start_method('spawn')
 
     if len(argv) == 1:
         # no command arguments are provided, sherpa is ran in test mode with fixed input arguments
