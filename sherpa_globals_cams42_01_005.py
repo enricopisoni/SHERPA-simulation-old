@@ -8,8 +8,8 @@ define some global variables
 
 # variabels for testing
 # absolute emission per cell and macro sector
-path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_01_005.nc'
-#path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_pm10.nc'
+path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_01_005_SecEmis.nc'
+#path_emission_cdf_test = '../input_CAMS42_EMEP_01005/createBCemiGNFR/output/BCemis_emepV434_camsV42_01_005_SecEmis.nc'
 
 # netcdf with cells where reductions have to be applied (value between 0 and 1)
 # path_area_cdf_test = 'input_CAMS42_EMEP_01005/EMI_RED_NUTS3_ITALY.nc'

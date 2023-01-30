@@ -134,7 +134,7 @@ if __name__ == '__main__':
         # run module 3a test inputs with test inputs
         start = time()
         # module3a(path_emission_cdf_test, path_area_cdf_test, path_reduction_txt_test, path_base_conc_cdf_test, path_model_cdf_test, path_result_cdf_test,
-                    # downscale_request)
+        #             downscale_request)
         stop = time()
         print('Module 3a calculation time = %f' % (stop - start))
 

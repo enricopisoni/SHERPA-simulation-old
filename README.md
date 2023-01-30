@@ -9,6 +9,7 @@ The current used modules are:
 -  Module 6 (Governance): to analyze how one should coordinate with the surrounding regions to optimally improve air quality;
 -  Module 8 (health impact): to evaluate PM2.5 health-related impact, when running module 1
 -  Module 9 (aggregation): to aggregate emissions and concentrations, at NUTS or FUAs level.
+-  Module 10 (cost module): to compute costs of end-of-pipe technologies required to reach a given emission reduction target.
 
 All modules have been tested with the 0.1x0.1 (also with downscaling) version; for the 0.1x0.05 version all modules works, except module 8 (health impact evalution needs additional files, to be created) and module 9 (this needs also interaction with GUI to be tested).
 

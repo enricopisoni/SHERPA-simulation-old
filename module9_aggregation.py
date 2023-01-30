@@ -182,7 +182,7 @@ def module9_aggregation(aggrinp_txt):
                     
                     
                     areaxvar=df_areas[df_areas['mult'].notnull()]['mult'].sum()
-                    areatot = 100 #20210201EP, change as percentage in the grid_intersect file are between 0 and 100, not between 0 and 1                    
+                    areatot = 1 #20220606, there was a bug
                 # this if statement is to take care of areas in the 
                 # shape file which are outside the domain 
                 if areatot is not 0: 
